@@ -33,8 +33,7 @@ class Board:
                 cells.append(new_cell)
         np_cells = np.array(cells)
         np_cells.reshape(9, 9)
-        for cell in np_cells:
-            print(cell)
+        print(np_cells)
 
 
     #def populate_board(self):
