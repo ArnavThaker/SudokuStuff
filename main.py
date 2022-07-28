@@ -26,6 +26,7 @@ class Board:
         """
         Constructor for a Sudoku board. Cells are given proper meta values and initialized to 0
         
+        Test commit and push
         """
         for i in range(9):
             for j in range(9):
