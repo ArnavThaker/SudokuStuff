@@ -17,7 +17,9 @@ class Cell:
         self.box = box
 
     def __str__(self):
-        return "Value is {}, row is {}, col is {}, box is {}".format(self.val, self.row, self.col, self.box)
+        return "{}{}{}".format(self.row, self.col, self.box)
+
+    __repr__ = __str__
 
 
 class Board:
@@ -26,15 +28,15 @@ class Board:
         """
         Constructor for a Sudoku board. Cells are given proper meta values and initialized to 0
         
-        Test commit and push
         """
         for i in range(9):
             for j in range(9):
                 new_cell = Cell(0, i, j, (j//3)+(i//3)*3)
                 cells.append(new_cell)
-        np_cells = np.array(cells)
-        np_cells.reshape(9, 9)
-        print(np_cells)
+        board = np.array(cells)
+        board = board.reshape(9, 9)
+        for i in range(len(board)):
+            print(board[i])
 
 
     #def populate_board(self):
