@@ -16,30 +16,43 @@ class Cell:
         self.col = col
         self.box = box
 
+    #def __str__(self):
+     #   return "{}{}{}".format(self.row, self.col, self.box)
+
     def __str__(self):
-        return "{}{}{}".format(self.row, self.col, self.box)
+        return "{}".format(self.val)
 
     __repr__ = __str__
 
 
 class Board:
     def __init__(self):
-        cells = []
         """
         Constructor for a Sudoku board. Cells are given proper meta values and initialized to 0
         
         """
+        self.populate_board()
+
+
+    def init_board(self):
+        cells = []
         for i in range(9):
             for j in range(9):
                 new_cell = Cell(0, i, j, (j//3)+(i//3)*3)
                 cells.append(new_cell)
         board = np.array(cells)
         board = board.reshape(9, 9)
+        return board
+
+    def populate_board(self):
+        board = self.init_board()
+        digits = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         for i in range(len(board)):
-            print(board[i])
-
-
-    #def populate_board(self):
+            for j in range(len(board)):
+                selected = np.random.randint(1, 10, 1)[0]
+                digits.remove(selected)
+                board[i][j].val =
+        print(board)
 
 
 
