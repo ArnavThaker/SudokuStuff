@@ -31,6 +31,11 @@ class Row:
     def add_cell(self, cell):
         self.cells.append(cell)
 
+    def __str__(self):
+        return "{}".format(self.cells)
+
+    __repr__ = __str__
+
 class Column(Row):
     pass
 
@@ -44,30 +49,33 @@ class Board:
         Constructor for a Sudoku board. Cells are given proper meta values and initialized to 0
         
         """
-        self.populate_board()
+        self.create_rows()
 
 
     def init_board(self):
         cells = []
         for i in range(9):
             for j in range(9):
-                new_cell = Cell(0, i, j, (j//3)+(i//3)*3)
+                new_cell = Cell(i, i, j, (j//3)+(i//3)*3) # change value back to 0
                 cells.append(new_cell)
         board = np.array(cells)
         board = board.reshape(9, 9)
         return board
 
-    def populate_board(self):
+    def create_rows(self):
+        rows = []
         board = self.init_board()
-        digits = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-        for i in range(len(board)):
-            for j in range(len(board)):
-                selected = np.random.randint(1, 10, 1)[0]
-                digits.remove(selected)
-                board[i][j].val =
-        print(board)
+        for i in board:
+            current_row = Row()
+            for j in i:
+                current_row.add_cell(j)
+            rows.append(current_row)
+        return rows
 
-    def create_rows_cols_boxes(self):
+    def create_cols(self):
+
+
+
 
 
 def test():
