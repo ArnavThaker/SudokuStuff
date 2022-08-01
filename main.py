@@ -49,7 +49,7 @@ class Board:
         Constructor for a Sudoku board. Cells are given proper meta values and initialized to 0
         
         """
-        self.create_rows()
+        self.init_board()
 
 
     def init_board(self):
@@ -65,14 +65,59 @@ class Board:
     def create_rows(self):
         rows = []
         board = self.init_board()
+        print(board)
         for i in board:
             current_row = Row()
             for j in i:
                 current_row.add_cell(j)
             rows.append(current_row)
+        print(rows)
+        rows = np.array(rows)
+        print(rows.shape)
+        rows.reshape(3, 3)
+        print(rows.shape)
+        print(rows)
         return rows
 
     def create_cols(self):
+        cols = []
+        board = self.init_board()
+        for i in range(9):
+            current_col = Column()
+            for j in board[0:9, i]:
+                current_col.add_cell(j)
+            cols.append(current_col)
+        cols = np.array(cols)
+        cols = cols.reshape(1, 9)
+        print(cols)
+        return cols
+
+    def create_boxes(self):
+        boxes = []
+        board = self.init_board()
+        for i in range(3):
+            current_box = Box()
+            for j in board[(i//3)*3:(i//3)*3+3, i*3:i*3+3]:
+                for k in j:
+                    current_box.add_cell(k)
+            boxes.append(current_box)
+        for i in range(3, 6):
+            current_box = Box()
+            for j in board[(i//3)*3:(i//3)*3+3, (i-3)*3:(i-3)*3+3]:
+                for k in j:
+                    current_box.add_cell(k)
+            boxes.append(current_box)
+        for i in range(6, 9):
+            current_box = Box()
+            for j in board[(i//3)*3:(i//3)*3+3, (i-6)*3:(i-6)*3+3]:
+                for k in j:
+                    current_box.add_cell(k)
+            boxes.append(current_box)
+        boxes = np.array(boxes)
+        boxes = boxes.reshape(1, 9)
+        print(boxes)
+        return boxes
+
 
 
 
@@ -80,6 +125,10 @@ class Board:
 
 def test():
     board = Board()
+    board.create_rows()
+    board.create_cols()
+    board.create_boxes()
+
 
 if __name__ == '__main__':
     test()
