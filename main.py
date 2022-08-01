@@ -24,6 +24,19 @@ class Cell:
 
     __repr__ = __str__
 
+class Row:
+    def __init__(self):
+        self.cells = []
+
+    def add_cell(self, cell):
+        self.cells.append(cell)
+
+class Column(Row):
+    pass
+
+
+class Box(Row):
+    pass
 
 class Board:
     def __init__(self):
@@ -54,6 +67,7 @@ class Board:
                 board[i][j].val =
         print(board)
 
+    def create_rows_cols_boxes(self):
 
 
 def test():
