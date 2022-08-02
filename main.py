@@ -71,11 +71,8 @@ class Board:
             for j in i:
                 current_row.add_cell(j)
             rows.append(current_row)
-        print(rows)
         rows = np.array(rows)
-        print(rows.shape)
-        rows.reshape(3, 3)
-        print(rows.shape)
+        rows = rows.reshape(9, 1)
         print(rows)
         return rows
 
@@ -88,7 +85,7 @@ class Board:
                 current_col.add_cell(j)
             cols.append(current_col)
         cols = np.array(cols)
-        cols = cols.reshape(1, 9)
+        cols = cols.reshape(9, 1)
         print(cols)
         return cols
 
@@ -114,7 +111,7 @@ class Board:
                     current_box.add_cell(k)
             boxes.append(current_box)
         boxes = np.array(boxes)
-        boxes = boxes.reshape(1, 9)
+        boxes = boxes.reshape(9, 1)
         print(boxes)
         return boxes
 
