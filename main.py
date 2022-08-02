@@ -74,6 +74,7 @@ class Board:
         rows = np.array(rows)
         rows = rows.reshape(9, 1)
         print(rows)
+        # subscript family with object[row][0].cells[col]
         return rows
 
     def create_cols(self):
