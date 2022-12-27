@@ -32,7 +32,7 @@ class Board:
         cells = []
         for i in range(9):
             for j in range(9):
-                new_cell = Cell(0, i, j, (j // 3) + (i // 3) * 3)  # change value back to 0
+                new_cell = Cell(' ', i, j, (j // 3) + (i // 3) * 3)  # change value back to 0
                 cells.append(new_cell)
         self.board = np.array(cells)
         self.board = self.board.reshape(9, 9)
@@ -65,6 +65,56 @@ class Board:
             if nums.size == 0:
                 nums = np.arange(1, 10)
         print(self.board)
+
+    def check_val(self, cell1, cell2):
+        """
+        Instance method to check if two cells share the same value, a helper method for the row and column
+        checking methods
+
+        :param cell1: the first cell whose value is to be compared (of type Cell)
+        :param cell2: the second cell whose value is to be compared (of type Cell)
+        :return: 0 if the cells have the same value, 1 otherwise
+        """
+        if cell1.val == cell2.val:
+            return 0
+        else:
+            return 1
+
+    def check_row(self, cell):
+        """
+        Instance method to check if a cell has the same value as another cell in its row
+
+        :param cell: the cell whose value is being checked against every other cell in the row (of
+        type Cell)
+        :return: 0 if the cell has the same value as another cell in the row, 1 otherwise
+        """
+        for i in self.board[cell.row][cell.col]:
+            flag = self.check_val(i, cell)
+            if flag == 0:
+                return flag
+        return 1
+
+    def check_col(self, cell):
+        """
+        Instance method to check if a cell has the same value as another cell in its column
+
+        :param cell: the cell whose value is being checked against every other cell in the column
+        :return: 0 if the cell has the same value as another cell in the column, 1 otherwise
+        """
+        for i in range(9):
+            flag = self.check_val(self.board[i][cell.col], cell)
+            if flag == 0:
+                return flag
+        return 1
+
+    def check_box(self, cell):
+        """
+        Instance method to check if a cell has the same value as anther cell in its box
+
+        :param cell: the cell whose value is being checked against every other cell in the box
+        :return: 0 if the cell has the same value as another cell in the column, 1 otherwise
+        """
+
 
 
 
