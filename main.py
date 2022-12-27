@@ -32,11 +32,12 @@ class Board:
         cells = []
         for i in range(9):
             for j in range(9):
-                new_cell = Cell(i, i, j, (j // 3) + (i // 3) * 3)  # change value back to 0
+                new_cell = Cell(0, i, j, (j // 3) + (i // 3) * 3)  # change value back to 0
                 cells.append(new_cell)
         self.board = np.array(cells)
         self.board = self.board.reshape(9, 9)
         print(self.board)
+
 
     def populate_board(self):
         """
@@ -45,12 +46,34 @@ class Board:
 
         :return: None
         """
+        nums = np.arange(1, 10)
+        indices = np.arange(0, 9)
+        count = 0
+        #while nums.size != 0:
+         #   herb = np.random.choice(nums, replace=False)
+          #  nums = np.delete(nums, np.where(nums == herb))
+           # print(herb)
+            #print(nums)
+        while count < 18:
+            row = np.random.choice(indices)
+            col = np.random.choice(indices)
+            box = np.random.choice(indices)
+            if self.board[row][col].val == 0:
+                value = np.random.choice(nums, replace=False)
+                self.board[row][col].val == value
+                nums = np.delete(nums, np.where(nums == value))
+                count += 1
+            if nums.size == 0:
+                nums = np.arange(1, 10)
+        print(self.board)
+
+
+
 
 
 def test():
     board = Board()
     board.populate_board()
-    print(board.board)
 
 
 if __name__ == '__main__':
