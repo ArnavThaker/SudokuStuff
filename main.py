@@ -54,13 +54,12 @@ class Board:
           #  nums = np.delete(nums, np.where(nums == herb))
            # print(herb)
             #print(nums)
-        while count < 18:
+        while count < 17:
             row = np.random.choice(indices)
             col = np.random.choice(indices)
-            box = np.random.choice(indices)
             if self.board[row][col].val == 0:
                 value = np.random.choice(nums, replace=False)
-                self.board[row][col].val == value
+                self.board[row][col].val = value
                 nums = np.delete(nums, np.where(nums == value))
                 count += 1
             if nums.size == 0:
