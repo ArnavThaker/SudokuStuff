@@ -49,16 +49,14 @@ class Board:
         """
         nums = np.arange(1, 10)
         indices = np.arange(0, 9)
-        count = 0
-        while count < 17:
-            row = np.random.choice(indices)
-            col = np.random.choice(indices)
-            cell = self.board[row][col]
+        for i in range(17):
+            cell = self.board[np.random.choice(indices)][np.random.choice(indices)]
+            while cell.val != 0:
+                cell = self.board[np.random.choice(indices)][np.random.choice(indices)]
             while self.check_row(cell) + self.check_col(cell) + self.check_box(cell) != 3:
                 value = np.random.choice(nums, replace=False)
                 cell.val = value
             nums = np.delete(nums, np.where(nums == value))
-            count += 1
             if nums.size == 0:
                 nums = np.arange(1, 10)
         print(self.board)
