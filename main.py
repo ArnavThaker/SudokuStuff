@@ -17,7 +17,7 @@ class Cell:
         self.box = box
 
     def __str__(self):
-        return "{}".format(self.val)
+        return "{}".format(self.val)  # change back to just the value
 
     __repr__ = __str__
 
@@ -29,10 +29,11 @@ class Board:
         Constructor for a Sudoku board. Cells are given proper meta values and initialized to 0
         
         """
+        nums = np.arange(1, 10)
         cells = []
         for i in range(9):
             for j in range(9):
-                new_cell = Cell(' ', i, j, (j // 3) + (i // 3) * 3)  # change value back to 0
+                new_cell = Cell(0, i, j, (j // 3) + (i // 3) * 3)  # change value back to 0
                 cells.append(new_cell)
         self.board = np.array(cells)
         self.board = self.board.reshape(9, 9)
@@ -49,19 +50,15 @@ class Board:
         nums = np.arange(1, 10)
         indices = np.arange(0, 9)
         count = 0
-        #while nums.size != 0:
-         #   herb = np.random.choice(nums, replace=False)
-          #  nums = np.delete(nums, np.where(nums == herb))
-           # print(herb)
-            #print(nums)
         while count < 17:
             row = np.random.choice(indices)
             col = np.random.choice(indices)
-            if self.board[row][col].val == 0:
+            cell = self.board[row][col]
+            while self.check_row(cell) + self.check_col(cell) + self.check_box(cell) != 3:
                 value = np.random.choice(nums, replace=False)
-                self.board[row][col].val = value
-                nums = np.delete(nums, np.where(nums == value))
-                count += 1
+                cell.val = value
+            nums = np.delete(nums, np.where(nums == value))
+            count += 1
             if nums.size == 0:
                 nums = np.arange(1, 10)
         print(self.board)
@@ -88,9 +85,9 @@ class Board:
         type Cell)
         :return: 0 if the cell has the same value as another cell in the row, 1 otherwise
         """
-        for i in self.board[cell.row][cell.col]:
+        for i in self.board[cell.row]:
             flag = self.check_val(i, cell)
-            if flag == 0:
+            if i != cell and flag == 0:
                 return flag
         return 1
 
@@ -103,7 +100,7 @@ class Board:
         """
         for i in range(9):
             flag = self.check_val(self.board[i][cell.col], cell)
-            if flag == 0:
+            if self.board[i][cell.col] != cell and flag == 0:
                 return flag
         return 1
 
@@ -114,6 +111,25 @@ class Board:
         :param cell: the cell whose value is being checked against every other cell in the box
         :return: 0 if the cell has the same value as another cell in the column, 1 otherwise
         """
+        box_coords = {
+            0: [(0, 0), (0, 1), (0, 2), (1, 0), (1, 1), (1, 2), (2, 0), (2, 1), (2, 2)],
+            1: [(0, 3), (0, 4), (0, 5), (1, 3), (1, 4), (1, 5), (2, 3), (2, 4), (2, 5)],
+            2: [(0, 6), (0, 7), (0, 8), (1, 6), (1, 7), (1, 8), (2, 6), (2, 7), (2, 8)],
+            3: [(3, 0), (3, 1), (3, 2), (4, 0), (4, 1), (4, 2), (5, 0), (5, 1), (5, 2)],
+            4: [(3, 3), (3, 4), (3, 5), (4, 3), (4, 4), (4, 5), (5, 3), (5, 4), (5, 5)],
+            5: [(3, 6), (3, 7), (3, 8), (4, 6), (4, 7), (4, 8), (5, 6), (5, 7), (5, 8)],
+            6: [(6, 0), (6, 1), (6, 2), (7, 0), (7, 1), (7, 2), (8, 0), (8, 1), (8, 2)],
+            7: [(6, 3), (6, 4), (6, 5), (7, 3), (7, 4), (7, 5), (8, 3), (8, 4), (8, 5)],
+            8: [(6, 6), (6, 7), (6, 8), (7, 6), (7, 7), (7, 8), (8, 6), (8, 7), (8, 8)],
+
+        }
+        box = cell.box
+        for i in box_coords[box]:
+            flag = self.check_val(cell, self.board[i[0]][i[1]])
+            if self.board[i[0]][i[1]] != cell and flag == 0:
+                return flag
+        return 1
+
 
 
 
@@ -123,6 +139,7 @@ class Board:
 def test():
     board = Board()
     board.populate_board()
+
 
 
 if __name__ == '__main__':
