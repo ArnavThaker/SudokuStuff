@@ -1,5 +1,5 @@
 import numpy as np
-import random
+
 
 class Cell:
     def __init__(self, val, row, col, box):
@@ -17,7 +17,7 @@ class Cell:
         self.box = box
 
     def __str__(self):
-        return "{}".format(self.val)  # change back to just the value
+        return "{}".format(self.val)
 
     __repr__ = __str__
 
@@ -38,7 +38,6 @@ class Board:
         self.board = np.array(cells)
         self.board = self.board.reshape(9, 9)
         print(self.board)
-
 
     def populate_board(self):
         """
@@ -119,7 +118,6 @@ class Board:
             6: [(6, 0), (6, 1), (6, 2), (7, 0), (7, 1), (7, 2), (8, 0), (8, 1), (8, 2)],
             7: [(6, 3), (6, 4), (6, 5), (7, 3), (7, 4), (7, 5), (8, 3), (8, 4), (8, 5)],
             8: [(6, 6), (6, 7), (6, 8), (7, 6), (7, 7), (7, 8), (8, 6), (8, 7), (8, 8)],
-
         }
         box = cell.box
         for i in box_coords[box]:
@@ -128,15 +126,29 @@ class Board:
                 return flag
         return 1
 
+    def is_valid(self, cell):
+        """
+        Instance method and helper for solve() that determines if a cell placement is valid per Sudoku rules
+
+        :param cell: a cell that is being placed in the board
+        :return: 1 if the cell is a valid placement, 0 otherwise
+        """
+        if self.check_row(cell) + self.check_col(cell) + self.check_box(cell) == 3:
+            return 1
+        else:
+            return 0
 
 
-
+    def solve(self):
+        if j.val != 0:
+            solve()
 
 
 
 def test():
     board = Board()
     board.populate_board()
+    board.solve()
 
 
 
