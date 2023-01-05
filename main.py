@@ -37,7 +37,6 @@ class Board:
                 cells.append(new_cell)
         self.board = np.array(cells)
         self.board = self.board.reshape(9, 9)
-        print(self.board)
 
     def populate_board(self):
         """
@@ -48,7 +47,7 @@ class Board:
         """
         nums = np.arange(1, 10)
         indices = np.arange(0, 9)
-        for i in range(17):
+        for i in range(30):
             cell = self.board[np.random.choice(indices)][np.random.choice(indices)]
             while cell.val != 0:
                 cell = self.board[np.random.choice(indices)][np.random.choice(indices)]
@@ -138,11 +137,27 @@ class Board:
         else:
             return 0
 
+    def find_empty(self):
+        for i in self.board:
+            for j in i:
+                if j.val == 0:
+                    return j.row, j.col
+        return -1, -1
 
     def solve(self):
-        if j.val != 0:
-            solve()
-
+        index = self.find_empty()
+        nums = np.arange(1, 10)
+        if index[0] == -1 and index[1] == -1:
+            return 1
+        cell = self.board[index[0]][index[1]]
+        for i in nums:
+            cell.val = i
+            if self.is_valid(cell):
+                if self.solve():
+                    return 1
+            else:
+                cell.val = 0
+        return 0
 
 
 def test():
