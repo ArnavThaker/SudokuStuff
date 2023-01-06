@@ -47,7 +47,7 @@ class Board:
         """
         nums = np.arange(1, 10)
         indices = np.arange(0, 9)
-        for i in range(30):
+        for i in range(17):
             cell = self.board[np.random.choice(indices)][np.random.choice(indices)]
             while cell.val != 0:
                 cell = self.board[np.random.choice(indices)][np.random.choice(indices)]
@@ -57,7 +57,6 @@ class Board:
             nums = np.delete(nums, np.where(nums == value))
             if nums.size == 0:
                 nums = np.arange(1, 10)
-        print(self.board)
 
     def check_val(self, cell1, cell2):
         """
@@ -145,8 +144,8 @@ class Board:
         return -1, -1
 
     def solve(self):
-        index = self.find_empty()
         nums = np.arange(1, 10)
+        index = self.find_empty()
         if index[0] == -1 and index[1] == -1:
             return 1
         cell = self.board[index[0]][index[1]]
@@ -159,11 +158,23 @@ class Board:
                 cell.val = 0
         return 0
 
+    def final_check(self):
+        for i in self.board:
+            for j in i:
+                if self.check_row(j) + self.check_col(j) + self.check_box(j) != 3:
+                    return 0
+        return 1
 
 def test():
     board = Board()
     board.populate_board()
+    print("Board before solving: \n", board.board)
     board.solve()
+    if board.final_check():
+        print("\nBoard after solving: \n", board.board)
+    else:
+        print("Sudoku Solve failed")
+
 
 
 
