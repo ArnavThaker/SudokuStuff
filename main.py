@@ -1,4 +1,5 @@
 import numpy as np
+import gui
 
 
 class Cell:
@@ -47,7 +48,7 @@ class Board:
         """
         nums = np.arange(1, 10)
         indices = np.arange(0, 9)
-        for i in range(16):
+        for i in range(17):
             cell = self.board[np.random.choice(indices)][np.random.choice(indices)]
             while cell.val != 0:
                 cell = self.board[np.random.choice(indices)][np.random.choice(indices)]
@@ -174,8 +175,6 @@ def test():
         print("\nBoard after solving: \n", board.board)
     else:
         print("Sudoku Solve failed")
-
-
 
 
 if __name__ == '__main__':
