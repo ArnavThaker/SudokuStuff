@@ -1,4 +1,5 @@
 import numpy as np
+import subprocess
 import gui
 
 
@@ -179,3 +180,4 @@ def test():
 
 if __name__ == '__main__':
     test()
+    subprocess.run(['python', 'gui.py'])

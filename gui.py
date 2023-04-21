@@ -1,9 +1,13 @@
-import sys
-from PyQt6.QtWidgets import QApplication, QLabel, QWidget
+from tkinter import *
 
-app = QApplication([])
-window = QWidget()
-window.setWindowTitle("Sudoku")
-window.setGeometry(100, 100, 280, 80) # x start, y start, width, height
-helloMsg = QLabel("<h1>Hello, World!</h1>", parent=window) # This is in HTML, which I have 0 clue how to use
-helloMsg.move(60, 15)
+from datetime import date, datetime
+
+def guiTest():
+    window = Tk()
+    window.geometry("400x400")
+    greeting = Label(text="Hello World")
+    greeting.grid()
+    window.mainloop()
+
+if __name__ == "__main__":
+    guiTest()
